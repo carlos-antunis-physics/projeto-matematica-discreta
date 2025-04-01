@@ -38,8 +38,8 @@ inline long long unsigned mdc(long long unsigned a, long long unsigned b) {
     return (b == 0) ? a : mdc(b, a % b);
 }
 
-short sao_coprimos(long long unsigned numeros[]) {
-    return mdc(numeros[2], mdc(numeros[1], numeros[0])) == 1;
+short sao_coprimos(long long unsigned b[]) {
+    return (mdc(b[0], b[1]) == 1) && (mdc(b[0], b[2]) == 1) && (mdc(b[1], b[2]) == 1);
 }
 
 long long unsigned inverso_modular(long long unsigned a, long long unsigned b) {

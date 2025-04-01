@@ -10,7 +10,6 @@
 #include <stdlib.h>
 
 static inline long long unsigned mdc(long long unsigned, long long unsigned);
-long long unsigned mdc_recursivo(long long unsigned [], unsigned);
 short sao_coprimos(long long unsigned [], unsigned);
 long long unsigned inverso_modular(long long unsigned, long long unsigned);
 
@@ -39,16 +38,15 @@ int main() {
 inline long long unsigned mdc(long long unsigned a, long long unsigned b) {
     return (b == 0) ? a : mdc(b, a % b);
 }
-long long unsigned mdc_recursivo(long long unsigned numeros[], unsigned n) {
-    if (n == 2) {                       // havendo apenas dois calcule o mdc
-        return mdc(numeros[1], numeros[0]);
-    }
-    //  havendo mais aplique recursao
-    return mdc(numeros[n - 1], mdc_recursivo(numeros, n - 1));
-}
 
 short sao_coprimos(long long unsigned numeros[], unsigned n) {
-    return mdc_recursivo(numeros, n) == 1;
+    short mdc_eh_1 = 1;
+    for (int i = 0; i < n; i++) {       // para todos os pares
+        for (int j = 0; j < i; j++) {   // de numeros distintos
+            mdc_eh_1 = mdc_eh_1 && (mdc(numeros[i], numeros[j]) == 1);
+        }
+    }
+    return mdc_eh_1;
 }
 
 long long unsigned inverso_modular(long long unsigned a, long long unsigned b) {

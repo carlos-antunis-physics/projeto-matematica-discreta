@@ -25,7 +25,7 @@ int main() {
     for (int i = 0; i < N; i++) {       // para cada congruencia
         //  requerer a leitura das congruencias
         printf("insira a congruencia %d (a mod b): ", i + 1);
-        scanf("%lld mod %lld", &a[i], &b[i]);
+        scanf("%llu mod %llu", &a[i], &b[i]);
     }
     if (sao_coprimos(b, N)) {
         //  imprimir o resultado da aplicacao do algoritmo derivado do teorema chines dos restos
@@ -83,6 +83,6 @@ void algoritmo_chines_para_restos(long long unsigned a[], long long unsigned b[]
         soma_total += a[i] * M[i] * INV[i];
     }
 
-    printf("a solucao eh congruente a %lld mod %lld\n", soma_total % mul_total, mul_total);
+    printf("a solucao eh congruente a %llu mod %llu\n", soma_total % mul_total, mul_total);
     return;
 }

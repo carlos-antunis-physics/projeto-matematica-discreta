@@ -1,8 +1,7 @@
 /*
-    Problema 9
-        Escrever um programa para encontrar a solução única de três congruências
-        usando o Teorema Chinês do Resto. (Lembre-se de verificar se os módulos
-        são coprimos).
+    Problema 10
+        Generalize o programa da questão anterior para funcionar com n congruências ao
+        invés de somente 3, onde n será dado pelo usuário.
 
     Autores: Carlos, Filipe, Flavia, Giovanna, Mirian
 */
@@ -28,10 +27,13 @@ int main() {
         printf("insira a congruencia %d (a mod b): ", i + 1);
         scanf("%lld mod %lld", &a[i], &b[i]);
     }
-    //  imprimir o resultado da aplicacao do algoritmo derivado do teorema chines dos restos
-    algoritmo_chines_para_restos(a, b, N);
-
-    return 0;                           // finaliza a execucao sem erros
+    if (sao_coprimos(b, N)) {
+        //  imprimir o resultado da aplicacao do algoritmo derivado do teorema chines dos restos
+        algoritmo_chines_para_restos(a, b, N);
+        return 0;                       // finaliza a execucao
+    }
+    printf("[ERRO] os valores de b nao sao coprimos\n");
+    return 0;                           // finaliza a execucao
 }
 
 inline long long unsigned mdc(long long unsigned a, long long unsigned b) {

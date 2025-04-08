@@ -8,19 +8,19 @@ Escrever um programa que determina se um dado número inteiro é primo ou não.
 
 Escrever um programa para listar números primos sequencialmente. Você deve otimizar o programa para que ele liste o maior número possível de primos em 60 segundos.
 
-###     Questão 3.
+###     [Questão 3.](problema-3.c)
 
 Escrever um programa para decompor um determinado número inteiro em seus fatores primos.
 
-###     Questão 4.
+###     [Questão 4.](problema-4.c)
 
 Escrever um programa para determinar o mdc e o mmc de dois inteiros com base em seus fatores primos.
 
-###     Questão 5.
+###     [Questão 5.](problema-5.c)
 
 Escrever um programa para determinar o mdc de dois números com base no Algoritmo de Euclides.
 
-###     Questão 6.
+###     [Questão 6.](problema-6.c)
 
 Escrever um programa para encontrar os coeficientes s e t da combinação linear mdc(a, b) = s · a + t · b.
 
@@ -28,7 +28,7 @@ Escrever um programa para encontrar os coeficientes s e t da combinação linear
 
 Escrever um programa para encontrar o inverso de a mod b.
 
-###     Questão 8.
+###     [Questão 8.](problema-8.c)
 
 Escrever um programa para encontrar a solução de uma congruência do tipo ax ≡ b mod m.
 

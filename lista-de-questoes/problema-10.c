@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+long long int euclides_extendido(long long int, long long int, long long int *, long long int *);
 static inline long long unsigned mdc(long long unsigned, long long unsigned);
 short sao_coprimos(long long unsigned [], unsigned);
 long long unsigned inverso_modular(long long unsigned, long long unsigned);
@@ -49,16 +50,24 @@ short sao_coprimos(long long unsigned numeros[], unsigned n) {
     return mdc_eh_1;
 }
 
-long long unsigned inverso_modular(long long unsigned a, long long unsigned b) {
-    const short True = 1;
-    unsigned inv = 1u;
-    while (True) {                      // enquanto o inverso modular nao for encontrado
-        if ((a * inv) % b == 1) {       // teste se inv eh o inverso modular
-            return inv;
-        }
-        //  teste o proximo
-        inv++;
+
+long long int euclides_extendido(long long int a, long long int b, long long int *x, long long int *y) {
+    if (b == 0) {
+        *x = 1;
+        *y = 0;
+        return a;
     }
+    long long int x1, y1;
+    long long int d = euclides_extendido(b, a % b, &x1, &y1);
+    *x = y1;
+    *y = x1 - (a / b) * y1;
+    return d;
+}
+
+long long int inverso_modular(long long int a, long long int b) {
+    long long int x, y;
+    long long int _ = euclides_estendido(a, b, &x, &y);
+    return x % b;
 }
 
 void algoritmo_chines_para_restos(long long unsigned a[], long long unsigned b[], unsigned N) {

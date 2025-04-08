@@ -33,12 +33,14 @@ short eh_primo(long long unsigned n) {
 
 void imprimir_primos() {
     time_t inicio, agora;
+    unsigned long long contador = 0u;
     long long unsigned n = 2;           // inicia pelo primeiro numero primo
     //  requisita o valor do tempo no inicio da execucao
     time(&inicio);
     do {
         if (eh_primo(n)) {              // sendo primo, imprima o numero
-            printf("%llu\n", n);
+            contador++;
+            printf(“%llu eh o %llu\n” numero primo!”, n, contador);
         }
         //  requsite o processamento do proximo numero
         n++;

@@ -10,7 +10,7 @@
 
 long long mdc_estendido(long long a, long long b, long long *s, long long *t) {
     long long s0 = 1, s1 = 0;
-    long long t0 = 0, t1 = 1;  //corrigido t0 e t1
+    long long t0 = 0, t1 = 1;  
     long long q, temp;
 
     while (b != 0) {

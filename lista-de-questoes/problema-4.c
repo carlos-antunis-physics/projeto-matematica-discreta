@@ -40,19 +40,8 @@ int main() {
         for (int i = 0; i < maior; i++) mmc *= p;
 
         p++;
-        if (p * p > a && p * p > b) {
-            //se p² > a e b, então o resto é primo
-            if (a > 1) {
-                mmc *= a;
-                if (b % a == 0) mdc *= a;
-                a = 1;
-            }
-            if (b > 1) {
-                mmc *= b;
-                if (A % b == 0) mdc *= b;
-                b = 1;
-            }
-        }
+      
+        if (a == 1 && b == 1) break;
     }
 
     printf("MDC: %lld\n", mdc);

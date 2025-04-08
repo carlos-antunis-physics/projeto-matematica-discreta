@@ -4,7 +4,7 @@
         otimizar o programa para que ele liste o maior número possível de primos em
         60 segundos.
     
-    Autores: Carlos, Filipe, Flavia, Giovanna, Mirian
+    Autores: Carlos, Filipe, Flavia, Giovanna, Mírian
 */
 
 #include <stdio.h>

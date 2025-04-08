@@ -14,8 +14,12 @@ int main() {
     //  requisite a leitura de a mod b
     printf("insira a mod b: ");
     scanf("%lld mod %lld", &a, &b);
-    //  imprima o inverso modular de a mod b
-    printf("o inverso modular de %lld mod %lld eh %lld\n", a, b, inverso_modular(a, b));
+    if (sao_coprimos(b)) {
+        //  imprima o inverso modular de a mod b
+        printf("o inverso modular de %lld mod %lld eh %lld\n", a, b, inverso_modular(a, b));
+        return 0;                       // finaliza a execucao
+    }
+    printf("[ERRO] os valores de b nao sao coprimos\n");
     return 0;                           // finaliza a execucao sem erros
 }
 

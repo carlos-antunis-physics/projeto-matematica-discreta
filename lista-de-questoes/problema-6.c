@@ -2,7 +2,7 @@
     Problema 6
         Escrever um programa para encontrar os coeficientes s e t da combinação linear mdc(a, b) = s · a + t · b.
 
-    Autores: Carlos, Filipe, Flavia, Giovanna, Mirian
+    Autores: Carlos, Filipe, Flavia, Giovanna, Mírian
 */
 
 #include <stdio.h>

@@ -23,8 +23,11 @@ int main() {
     printf("Digite dois números para calcular o MDC:\n");
     scanf("%lld %lld", &a, &b);
 
-    printf("MDC(%lld, %lld) = %lld\n", a, b, mdc(a, b));
+    if (a == 0 && b == 0) {
+        printf("MDC(0, 0) é indefinido.\n");
+    } else {
+        printf("MDC(%lld, %lld) = %lld\n", a, b, mdc(a, b));
+    }
 
-    return 0;
+    return  0;
 }
-

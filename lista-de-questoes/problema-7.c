@@ -17,19 +17,38 @@ int main() {
     //  requisite a leitura de a mod b
     printf("insira a mod b: ");
     scanf("%lld mod %lld", &a, &b);
-    //  imprima o inverso modular de a mod b
-    printf("o inverso modular de %lld mod %lld eh %lld\n", a, b, inverso_modular(a, b));
+    if (sao_coprimos(a, b)) {
+        //  imprima o inverso modular de a mod b
+        printf("o inverso modular de %lld mod %lld eh %lld\n", a, b, inverso_modular(a, b));
+        return 0;                       // finaliza a execucao
+    }
+    printf("[ERRO] os valores de b nao sao coprimos\n");
     return 0;                           // finaliza a execucao sem erros
+}
+inline long long unsigned mdc(long long unsigned a, long long unsigned b) {
+    return (b == 0) ? a : mdc(b, a % b);
+}
+
+long long int euclides_extendido(long long int a, long long int b, long long int *x, long long int *y) {
+    if (b == 0) {
+        *x = 1;
+        *y = 0;
+        return a;
+    }
+    long long int x1, y1;
+    long long int d = euclides_extendido(b, a % b, &x1, &y1);
+    *x = y1;
+    *y = x1 - (a / b) * y1;
+    return d;
+}
+
+short sao_coprimos(long long unsigned a, long long unsigned b) {
+  return mdc(a, b) == 1;
 }
 
 long long int inverso_modular(long long int a, long long int b) {
-    const short True = 1;
-    int inv = 1;
-    while (True) {                      // enquanto o inverso modular nao for encontrado
-        if ((a * inv) % b == 1) {       // teste se inv eh o inverso modular
-            return inv;
-        }
-        //  teste o proximo
-        inv++;
-    }
+    long long int x, y;
+    long long int _ = euclides_extendido(a, b, &x, &y);
+    long long int result = x % b;
+    return (result < 0) ? result + b : result;
 }

@@ -40,11 +40,7 @@ void imprimir_primos() {
     do {
         if (eh_primo(n)) {              // sendo primo, imprima o numero
             contador++;
-<<<<<<< HEAD
-            printf(“%llu eh o %llu\n” numero primo!”, n, contador);
-=======
             printf("%llu eh o %llu numero primo!\n", n, contador);
->>>>>>> 20a4604 (Minor fixes (fix broken dependencies and typos))
         }
         //  requsite o processamento do proximo numero
         n++;

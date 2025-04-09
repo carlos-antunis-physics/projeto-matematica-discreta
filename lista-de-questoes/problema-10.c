@@ -12,7 +12,7 @@
 long long int euclides_extendido(long long int, long long int, long long int *, long long int *);
 static inline long long unsigned mdc(long long unsigned, long long unsigned);
 short sao_coprimos(long long unsigned [], unsigned);
-long long unsigned inverso_modular(long long unsigned, long long unsigned);
+long long int inverso_modular(long long int, long long int);
 
 void algoritmo_chines_para_restos(long long unsigned [], long long unsigned [], unsigned);
 
@@ -66,8 +66,14 @@ long long int euclides_extendido(long long int a, long long int b, long long int
 
 long long int inverso_modular(long long int a, long long int b) {
     long long int x, y;
+<<<<<<< HEAD
     long long int _ = euclides_estendido(a, b, &x, &y);
     return x % b;
+=======
+    long long int _ = euclides_extendido(a, b, &x, &y);
+    long long int inv = x % b;
+    return (inv < 0) ? inv + b : inv;
+>>>>>>> 20a4604 (Minor fixes (fix broken dependencies and typos))
 }
 
 void algoritmo_chines_para_restos(long long unsigned a[], long long unsigned b[], unsigned N) {

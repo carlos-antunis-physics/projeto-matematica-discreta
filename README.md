@@ -1,6 +1,6 @@
 # Projeto de matematica discreta
 
->   **Autores:** [Carlos](https://github.com/carlos-antunis-physics/), Filipe, Flavia, [Giovanna](https://github.com/giovannaspace), [Mirian](https://github.com/miriangomes)
+>   **Autores:** [Carlos](https://github.com/carlos-antunis-physics/), [Filipe](https://github.com/FilipeFortaleza), Flavia, [Giovanna](https://github.com/giovannaspace), [Mirian](https://github.com/miriangomes)
 >
 >   O software disposto neste repositório foi desenvolvido sob a [Licença MIT](LICENSE).
 

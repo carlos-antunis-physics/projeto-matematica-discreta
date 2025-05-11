@@ -1,0 +1,522 @@
+/* === Fontes Personalizadas === */
+@font-face {
+  font-family: 'alarmclock';
+  src: url('../assets/fonts/alarmclock.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'pixelgamer';
+  src: url('../assets/fonts/pixelgamer.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'gameplay';
+  src: url('../assets/fonts/gameplay.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'gameover';
+  src: url('../assets/fonts/gameover.woff') format('woff');
+}
+
+/* === Estilos Globais === */
+body {
+  background-image: url('../assets/imagens/fundo2.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: scroll;
+  background-position: center;
+  font-family: 'pixelgamer', sans-serif;
+  color: rgb(255, 255, 255);
+  min-height: 200vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* === Cabeçalho === */
+.top-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #250710;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+  margin-right: 10px;
+}
+
+.header-marquee {
+  font-family: 'alarmclock', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 1;
+  font-size: 1.2rem;
+}
+
+.header-marquee-content {
+  display: inline-block;
+  animation: marquee-header 200s linear infinite;
+}
+
+@keyframes marquee-header {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* === Banners === */
+.banner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+  padding: 20px 0;
+}
+
+.banner {
+  width: 100vw; 
+  height: 225px;
+  position: relative;
+  overflow: hidden;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Banner visível */
+.banner.active {
+  display: flex;
+}
+
+/* Banner 1: animação contínua */
+#banner1 img {
+  height: 100%;
+  width: auto;
+  animation: marquee-banner 6s linear;
+}
+
+@keyframes marquee-banner {
+  0% { transform: translateX(100vw); }  /* Começa fora da tela */
+  100% { transform: translateX(-100vw); }  /* Passa completamente para a esquerda */
+}
+
+/* Banner 2: efeito de surgimento suave */
+.fade-in {
+  animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Banner 3: animação da direita para a esquerda com controle de escala */
+#banner3 {
+  width: 100vw;  
+  height: 225px;  
+  animation: move-from-right 6s ease-in-out forwards; /* Ajuste para vir da direita */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Garante que a imagem ou conteúdo dentro do Banner 3 não ultrapasse os limites */
+#banner3 img {
+  width: 100%;  
+  height: auto; 
+  object-fit: cover;  
+}
+
+/* Animação de Banner 3 vindo da direita e parando no meio */
+@keyframes move-from-right {
+  0% {
+    transform: translateX(100vw) scale(0.8);  /* Começa fora da tela e um pouco menor */
+  }
+  50% {
+    transform: translateX(0) scale(1);
+  }
+  100% {
+    transform: translateX(0) scale(1);  /* Fica no meio da tela */
+  }
+}
+
+/* Responsivo: Ajustes para telas menores */
+@media (max-width: 1200px) {
+  .banner {
+    width: 100%;
+    height: 200px;
+  }
+
+  #banner3 {
+    width: 100%;
+    height: 200px;
+  }
+
+  .banner img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner {
+    width: 100%;
+    height: 150px;
+  }
+
+  .banner img {
+    height: 150px;
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-bar {
+    height: 50px;
+  }
+
+  .header-marquee {
+    font-size: 1rem;
+  }
+
+  .banner-container {
+    padding: 10px 0;
+  }
+}
+
+/* Definições de variáveis para facilitar a manutenção */
+:root {
+  --bg-main: #f1d493;
+  --bg-dark: #FFDAD2;
+  --text-main: #ffffff;
+  --btn: #250707; /* Cor dos botões */
+  --btn-text: #fff;
+  --font-title: 'pixelgamer', sans-serif; /* Fonte dos títulos das seções */
+  --font-content: 'Inter', sans-serif; /* Fonte do conteúdo */
+  --bg-square: #ffdad234; /* Cor de fundo dos quadrados com 50% de opacidade */
+  --font-btn: 'Arial', sans-serif; /* Fonte padrão para botões */
+  --font-title-size: 2rem; /* Tamanho da fonte dos títulos das seções */
+}
+
+/* Estilização da seção de chave pública */
+.keygen-container {
+  max-width: 500px;
+  margin: 40px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  font-family: var(--font-content);
+  background-color: var(--bg-square); /* Aplica o fundo com 50% de opacidade */
+}
+
+/* Cabeçalho escuro da seção de Chave Pública com opacidade reduzida */
+.keygen-header {
+  background-color: #ffdad200; /* Cor escura com opacidade de 0.8 */
+  padding: 16px;
+}
+
+/* Centraliza o título e aumenta o tamanho usando a fonte GameOver */
+.keygen-header h1 {
+  color: white;
+  margin: 0;
+  font-size: var(--font-title-size); /* Usando o tamanho da fonte para o título */
+  font-family: var(--font-title);
+  text-align: center;
+}
+
+/* Corpo da seção de Chave Pública */
+.keygen-body {
+  background-color: var(--bg-main);
+  padding: 20px;
+  box-sizing: border-box;
+  color: var(--text-main);
+  background-color: var(--bg-square); /* Aplica o fundo com 50% de opacidade */
+}
+
+.step {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.step.active {
+  display: flex;
+}
+
+.step h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.keygen-body input,
+.keygen-body button, 
+
+.keygen-body select {
+  font-family: var(--font-btn);
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.keygen-body input {  
+  background-color: #ffffff;
+  border: 2px dashed #ffffff;
+}
+
+.keygen-body button {
+  padding: 16px;   /* Altura do botão */
+  font-size: 1rem; /* Tamanho da fonte */
+  width: auto;     /* Largura ajustada automaticamente ao conteúdo */
+  max-width: 100px; /* Define um limite de largura */
+  box-sizing: border-box;
+  background-color: var(--btn); /* Fundo do botão */
+  color: white; /* Cor do texto */
+  border-radius: 13px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.keygen-body button:hover {
+  opacity: 0.9;
+}
+
+.exponent-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.exponent-options span {
+  padding: 5px 10px;
+  background-color: #eee;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.exponent-options span:hover {
+  background-color: #ddd;
+}
+
+.footer-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .footer-buttons {
+    flex-direction: column;
+  }
+
+  .keygen-container {
+    margin: 20px 10px;
+  }
+}
+
+/* Estilização da seção de Encriptar */
+.encrypt-container {
+  max-width: 500px;
+  margin: 40px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  font-family: var(--font-content);
+  background-color: var(--bg-square); /* Aplica o fundo com 50% de opacidade */
+}
+
+/* Cabeçalho da seção de Encriptar */
+.encrypt-header {
+  background-color: var(--bg-dark-encrypt);
+  padding: 16px;
+}
+
+/* Centraliza o título e aumenta o tamanho usando a fonte GameOver */
+.encrypt-header h1 {
+  color: white;
+  margin: 0;
+  font-size: var(--font-title-size); /* Usando o tamanho da fonte para o título */
+  font-family: var(--font-title);
+  text-align: center;
+}
+
+/* Corpo da seção de Encriptar */
+.encrypt-body {
+  background-color: var(--bg-main-encrypt);
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: var(--bg-square); /* Aplica o fundo com 50% de opacidade */
+}
+
+.encrypt-body label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: var(--text-main-encrypt);
+}
+
+.encrypt-body input,
+.encrypt-body textarea {
+  background-color: #fff;
+  color: #000;  
+  width: 100%;
+  padding: 10px;
+  border: 2px dashed rgb(255, 255, 255);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+.encrypt-body textarea {
+  height: 150px;
+  resize: none;
+}
+
+/* Estilo para os botões Encriptar e Descriptografar */
+.encrypt-body button,
+.decrypt-body button {
+  padding: 16px;   /* Altura do botão */
+  font-size: 1rem; /* Tamanho da fonte */
+  max-width: 100px; /* Define um limite de largura */
+  box-sizing: border-box;
+  background-color: var(--btn); /* Fundo do botão */
+  color: white; /* Cor do texto */
+  border-radius: 13px;
+  border: none;  
+  cursor: pointer;
+  transition: 0.3s;
+  
+  /* Centralização do botão dentro do seu contêiner */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Efeito de hover para os botões */
+.encrypt-body button:hover,
+.decrypt-body button:hover {
+  opacity: 0.9;
+}
+
+/* Estilização da seção de Desecriptar */
+.decrypt-container {
+  max-width: 500px;
+  margin: 40px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  font-family: var(--font-content);
+  background-color: var(--bg-square); /* Aplica o fundo com 50% de opacidade */
+}
+
+/* Cabeçalho da seção de Desecriptar */
+.decrypt-header {
+  background-color: var(--bg-dark-decrypt);
+  padding: 16px;
+}
+
+/* Centraliza o título e aumenta o tamanho usando a fonte GameOver */
+.decrypt-header h1 {
+  color: white;
+  margin: 0;
+  font-size: var(--font-title-size); /* Usando o tamanho da fonte para o título */
+  font-family: var(--font-title);
+  text-align: center;
+}
+
+/* Corpo da seção de Desecriptar */
+.decrypt-body {
+  background-color: var(--bg-main-decrypt);
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: var(--bg-square); /* Aplica o fundo com 50% de opacidade */
+}
+
+.decrypt-body label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: var(--text-main-decrypt);
+}
+
+.decrypt-body input,
+.decrypt-body textarea {
+  background-color: #ffffff;
+  color: #000;
+  width: 100%;
+  padding: 10px;
+  border: 2px dashed rgb(0, 0, 0);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+.decrypt-body textarea {
+  height: 150px;
+  resize: none;
+}
+
+.decrypt-btn {
+  background-color: var(--btn);
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-family: var(--font-btn);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Estilização do Rodapé */
+.footer {
+  background-color: #22222200;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-logos {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.footer-logo {
+  width: 50px;
+  height: auto;
+}
+
+.footer-text {
+  font-size: 1rem;
+  margin-top: 10px;
+}
+

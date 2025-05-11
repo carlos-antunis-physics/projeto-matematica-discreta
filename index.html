@@ -1,25 +1,147 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-BR">
 <head>
-    <meta charset="utf-8">
-    <title>mini-GMP + WASM ES6</title>
-    <script src="rsa.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RSA Project</title>
+  <link rel="stylesheet" href="style/main.css">
+  <link rel="icon" type="image/png" href="assets/imagens/logodino.png">
 </head>
-
 <body>
-    <script>
-        function run_wasm() {
-            var result = Module.ccall(
-                "decryptMessage",
-                "string",
-                ["string", "string", "string", "string"],
-                ["155 14 58 76 131 178 66 144 155 ", "17", "11", "23"]
-            );
-            console.log(result);
-        }
-    </script>
-    <button onclick="run_wasm()">gerar chave pública</button>
-</body>
 
+  <!-- Cabeçalho -->
+  <header class="top-bar">
+    <img src="assets/imagens/logodino.png" alt="Logo Dino" class="logo">
+    <div class="header-marquee">
+      <div class="header-marquee-content">
+        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
+        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
+        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
+        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
+        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
+        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
+        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNNIS - RSA • MATEMATICA DISCRETA •
+        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
+        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
+        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main>
+    <section class="banner-container">
+      <!-- Banner 1 -->
+      <div class="banner" id="banner1">
+        <img src="assets/imagens/banner1.png" alt="Dino CRIPTOGRAFAR">
+      </div>
+
+      <!-- Banner 2 (GIF animado) -->
+      <div class="banner" id="banner2">
+        <img src="assets/imagens/banner2.gif" alt="GIF Dino Animado">
+      </div>
+
+      <!-- Banner 3 -->
+      <div class="banner" id="banner3">
+        <img src="assets/imagens/banner3.png" alt="VAMOS COMEÇAR">
+      </div>
+    </section>
+<!-- Conteúdo principal -->
+  <main>
+    <section class="banner-container">
+      <!-- Banner 1 -->
+      <div class="banner" id="banner1">
+        <img src="assets/imagens/banner1.png" alt="Dino CRIPTOGRAFAR">
+      </div>
+
+      <!-- Banner 2 (GIF animado) -->
+      <div class="banner" id="banner2">
+        <img src="assets/imagens/banner2.gif" alt="GIF Dino Animado">
+      </div>
+
+      <!-- Banner 3 -->
+      <div class="banner" id="banner3">
+        <img src="assets/imagens/banner3.png" alt="VAMOS COMEÇAR">
+      </div>
+    </section>
+
+ <!-- Seções do conteúdo -->
+    <div class="section-container">
+      
+      <!-- Seção 1: Gerar Chave Pública RSA -->
+      <div class="section-body" id="step1">
+        <div class="keygen-container">
+          <div class="keygen-header">
+            <h1>GERAR CHAVE PÚBLICA</h1>
+          </div>
+          <div class="keygen-body">
+            <div class="step active" id="step1-content">
+              <h2>Dois números primos</h2>
+              <input type="number" id="prime1" placeholder="Número primo (p)" />
+              <input type="number" id="prime2" placeholder="Número primo (q)" />
+              <button onclick="nextStep()">Próximo</button>
+            </div>
+            <div class="step" id="step2-content">
+              <h2>Digite o expoente</h2>
+              <div class="exponent-options" id="exponent-options"></div>
+              <input type="number" id="exponent" placeholder="" />
+              <div class="footer-buttons">
+                <button onclick="prevStep()">← Voltar</button>
+                <button onclick="generateKey()">Gerar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção 2: Encriptar -->
+      <div class="section-body" id="step2">
+        <div class="encrypt-container">
+          <div class="encrypt-header">
+            <h1>ENCRIPTAR</h1>
+          </div>
+          <div class="encrypt-body">
+            <label for="public-key">Chave pública</label>
+            <input type="text" id="public-key" placeholder="(e, n)" />
+            <textarea id="message" placeholder="Mensagem a ser criptografada"></textarea>
+            <button class="encrypt-btn" onclick="encryptMessage()">Gerar</button>
+            <p id="encrypted-output"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção 3: Desencriptar -->
+      <div class="section-body" id="step3">
+        <div class="encrypt-container">
+          <div class="encrypt-header">
+            <h1>DESENCRIPTAR</h1>
+          </div>
+          <div class="encrypt-body">
+            <label for="private-key">Chave privada</label>
+            <input type="text" id="private-key" placeholder="(p, q, e)" />
+            <textarea id="message-decrypt" placeholder="Mensagem a ser descriptografada"></textarea>
+            <button class="encrypt-btn" onclick="decryptMessage()">Gerar</button>
+            <p id="decrypted-output"></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+  <script src="js/rsa.js"></script>
+  <script src="js/main.js"></script>
+<!-- Rodapé -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logos">
+        <img src="assets/imagens/ic.png" alt="Logo IC" class="footer-logo">
+        <img src="assets/imagens/ufal.png" alt="Logo UFAL" class="footer-logo">
+      </div>
+      <p class="footer-text">
+        Engenharia de Computação: Universidade Federal de Alagoas - Campus AC. Simões - 2025
+      </p>
+    </div>
+  </footer>
+</body>
 </html>

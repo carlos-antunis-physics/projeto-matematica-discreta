@@ -129,7 +129,16 @@
 
     </div>
   </main>
-  <script src="js/rsa.js"></script>
+  <script>
+  var Module = {
+    wasmBinaryFile: 'js/rsa.wasm',
+    locateFile: function(path) {
+      if (path.endsWith('.wasm')) return 'js/rsa.wasm';
+      return path;
+    }
+  };
+</script>
+<script src="js/rsa.js"></script>
   <script src="js/main.js"></script>
 <!-- Rodapé -->
   <footer class="footer">

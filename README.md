@@ -17,8 +17,6 @@ Projeto de **Criptografia RSA** como **atividade avaliativa** da disciplina de *
 >   [!NOTE]
 >
 >   Neste repositório estão também dispostas nossas soluções da [lista de atividades](lista-de-questoes/README.md) de preparação para o projeto de Criptografia RSA na linguagem `C`.
-<<<<<<< HEAD
-=======
 
 ##  Licença
 
@@ -29,4 +27,3 @@ A aplicação web disposta neste repositório foi desenvolvida sob a [licença M
 <!-- - [**Emscripten.**](https://emscripten.org/) Um compilador completo para WebAssembly. -->
 
 - [**GNU Multiple Precision Arithmetic Library (GMP).**](https://gmplib.org/) Uma biblioteca livre para aritmética de precisão arbitrária, distribuída segundo a Licença [**GNU LGPL v3**](https://www.gnu.org/licenses/lgpl-3.0.html). <!-- Para a substituição da biblioteca no backend basta efetuar sua instalação via emscripten. -->
->>>>>>> 6aa8eba (Backend including)

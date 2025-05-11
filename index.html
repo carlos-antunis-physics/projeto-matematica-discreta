@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>mini-GMP + WASM ES6</title>
+    <script src="rsa.js"></script>
+</head>
+
+<body>
+    <script>
+        function run_wasm() {
+            var result = Module.ccall(
+                "decryptMessage",
+                "string",
+                ["string", "string", "string", "string"],
+                ["155 14 58 76 131 178 66 144 155 ", "17", "11", "23"]
+            );
+            console.log(result);
+        }
+    </script>
+    <button onclick="run_wasm()">gerar chave pública</button>
+</body>
+
+</html>

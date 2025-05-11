@@ -1,0 +1,5 @@
+[[headers]]
+    for "/js/rsa.wasm"
+    [headers.values]
+        "Content-Type" = "application/wasm"
+        "Cache-Control" = "public, max-age=604800"

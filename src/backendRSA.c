@@ -30,9 +30,9 @@ typedef enum {
     KEY_ERROR_INVALID_E,
 } public_key_result_t;
 
-bool isPrime(mpz_t n) {
+bool __isPrime(mpz_t n) {
     /*
-    *   bool isPrime(mpz_t)
+    *   bool __isPrime(mpz_t)
     *       Checks if a number is prime or not.
     *   
     *   @param mpz_t n: number to be checked
@@ -72,19 +72,25 @@ bool isPrime(mpz_t n) {
     return true; // not divisible, so it's a prime
 }
 
-public_key_result_t generatePublicKey(mpz_t p, mpz_t q, mpz_t e) {
+public_key_result_t generatePublicKey(unsigned long long _p, unsigned long long _q, unsigned long long _e) {
     /*
-    *   public_key_result_t generatePublicKey(mpz_t, mpz_t, mpz_t)
+    *   public_key_result_t generatePublicKey(unsigned long long, unsigned long long, unsigned long long)
     *       Generates the public key for RSA encryption in "public_key.txt" file
     *       if its possible, returning the resulting error code.
     * 
-    *   @param mpz_t p: first prime number
-    *   @param mpz_t q: second prime number
-    *   @param mpz_t e: public exponent
+    *   @param unsigned long long _p: first prime number
+    *   @param unsigned long long _q: second prime number
+    *   @param unsigned long long _e: public exponent
     */
 
+    mpz_t p, q, e;
+    
+    mpz_init_set_ui(p, _p);                          // p = _p
+    mpz_init_set_ui(q, _q);                          // q = _q
+    mpz_init_set_ui(e, _e);                          // e = _e
+
     //  check if p and q are prime numbers
-    if (!isPrime(p) || !isPrime(q)) {
+    if (!__isPrime(p) || !__isPrime(q)) {
         return KEY_ERROR_INVALID_PRIMES;
     }
     mpz_t n, mult, gcd;
@@ -119,22 +125,26 @@ public_key_result_t generatePublicKey(mpz_t p, mpz_t q, mpz_t e) {
     return KEY_VALID; // public key was generated successfully
 }
 
-void encryptMessage(char *mnsg, mpz_t n, mpz_t e)
+void encryptMessage(char *mnsg, unsigned long long _n, unsigned long long _e)
 {
     /*
-    *   void encryptMessage(char *, mpz_t, mpz_t)
+    *   void encryptMessage(char *, unsigned long long, unsigned long long)
     *       Encrypts a message using RSA protocol for the informed public key in
     *       "cypher.txt" file.
     *
     *   @param char *mnsg: message to be encrypted
-    *   @param mpz_t n: public key modular base
-    *   @param mpz_t e: public exponent
+    *   @param unsigned long long _n: public key modular base
+    *   @param unsigned long long _e: public exponent
     */
 
     //  Open cyphertext file
     FILE *cypher_text = fopen("cypher.txt", "w");
 
+    mpz_t n, e;
     mpz_t m, c;
+    
+    mpz_init_set_ui(n, _n);                          // n = _n
+    mpz_init_set_ui(e, _e);                          // e = _e
 
     mpz_init(m);
     mpz_init(c);
@@ -154,18 +164,18 @@ void encryptMessage(char *mnsg, mpz_t n, mpz_t e)
     return;
 }
 
-void decryptMessage(mpz_t *cphr, size_t len, mpz_t p, mpz_t q, mpz_t e)
+void decryptMessage(unsigned long long *_cphr, size_t len, unsigned long long _p, unsigned long long _q, unsigned long long _e)
 {
     /*
-    *   void decryptMessage(mpz_t *, size_t, mpz_t, mpz_t, mpz_t)
+    *   void decryptMessage(unsigned long long *, size_t, unsigned long long, unsigned long long, unsigned long long)
     *       Decrypts a message using RSA protocol for the informed private key in
     *       "message.txt" file.
     * 
-    *   @param mpz_t *cphr: cyphertext to be decrypted
+    *   @param unsigned long long *_cphr: cyphertext to be decrypted
     *   @param size_t len: length of the cyphertext
-    *   @param mpz_t p: first prime number
-    *   @param mpz_t q: second prime number
-    *   @param mpz_t e: public exponent
+    *   @param unsigned long long _p: first prime number
+    *   @param unsigned long long _q: second prime number
+    *   @param unsigned long long _e: public exponent
     */
 
     //  Open message file
@@ -174,6 +184,16 @@ void decryptMessage(mpz_t *cphr, size_t len, mpz_t p, mpz_t q, mpz_t e)
     //  Get private key
     mpz_t n, d;
     mpz_t m, mult;
+
+    mpz_t cphr[len], p, q, e;
+
+    for (size_t i = 0; i < len; i++)
+    {
+        mpz_init_set_ui(cphr[i], _cphr[i]);         // cphr[i] = _cphr[i]
+    }
+    mpz_init_set_ui(p, _p);                          // p = _p
+    mpz_init_set_ui(q, _q);                          // q = _q
+    mpz_init_set_ui(e, _e);                          // e = _e
 
     mpz_init(m);
     mpz_init(n);

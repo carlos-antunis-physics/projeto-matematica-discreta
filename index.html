@@ -88,7 +88,7 @@
               <input type="number" id="exponent" placeholder="" />
               <div class="footer-buttons">
                 <button onclick="prevStep()">← Voltar</button>
-                <button onclick="window.generateKey()">Gerar</button>
+                <button onclick="generateKey()">Gerar</button>
               </div>
             </div>
           </div>
@@ -105,7 +105,7 @@
             <label for="public-key">Chave pública</label>
             <input type="text" id="public-key" placeholder="(e, n)" />
             <textarea id="message" placeholder="Mensagem a ser criptografada"></textarea>
-            <button class="encrypt-btn" onclick="window.encryptMessage()">Gerar</button>
+            <button class="encrypt-btn" onclick="encryptMessage()">Gerar</button>
             <p id="encrypted-output"></p>
           </div>
         </div>
@@ -121,7 +121,7 @@
             <label for="private-key">Chave privada</label>
             <input type="text" id="private-key" placeholder="(p, q, e)" />
             <textarea id="message-decrypt" placeholder="Mensagem a ser descriptografada"></textarea>
-            <button class="encrypt-btn" onclick="window.decryptMessage()">Gerar</button>
+            <button class="encrypt-btn" onclick="decryptMessage()">Gerar</button>
             <p id="decrypted-output"></p>
           </div>
         </div>

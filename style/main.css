@@ -206,6 +206,52 @@ body {
   --font-title-size: 2rem; /* Tamanho da fonte dos títulos das seções */
 }
 
+/* ===== NOVOS ESTILOS PARA AS CHAVES GERADAS ===== */
+.generated-keys {
+  margin: 20px 0;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+}
+
+.generated-keys h3 {
+  color: white;
+  margin: 10px 0 5px 0;
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+}
+
+.key-display {
+  padding: 10px;
+  margin: 10px 0;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  word-break: break-all;
+  color: white;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.key-display + button {
+  background: var(--btn);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-btn);
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  margin-top: 5px;
+}
+
+.key-display + button:hover {
+  background: #3a0a0a;
+  transform: translateY(-2px);
+}
+
 /* Estilização da seção de chave pública */
 .keygen-container {
   max-width: 500px;
@@ -254,11 +300,11 @@ body {
 .step h2 {
   margin: 0;
   font-size: 1.2rem;
+  color: white;
 }
 
 .keygen-body input,
 .keygen-body button, 
-
 .keygen-body select {
   font-family: var(--font-btn);
   padding: 10px;
@@ -520,3 +566,127 @@ body {
   margin-top: 10px;
 }
 
+/* =========== novos botoes =========== */
+
+.generated-keys {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f3f3f3;
+  border-radius: 12px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.generated-keys h3 {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.key-display {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  border-radius: 8px;
+  min-height: 40px;
+  margin-bottom: 10px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  color: #222;
+}
+
+.generated-keys button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.generated-keys button:hover {
+  background-color: #0056b3;
+}
+/* ===== ESTILOS DA NOTIFICAÇÃO (TOAST) ===== */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #333;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 9999;
+  font-family: 'gameplay', sans-serif;
+  font-size: 16px;
+  max-width: 350px;
+  pointer-events: none;
+  border-left: 5px solid transparent;
+  backdrop-filter: blur(10px);
+  background-color: rgba(51, 51, 51, 0.9);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast.success {
+  border-left-color: #4CAF50;
+  background-color: rgba(76, 175, 80, 0.9);
+}
+
+.toast.error {
+  border-left-color: #F44336;
+  background-color: rgba(244, 67, 54, 0.9);
+}
+
+/* Ícone para os toasts */
+.toast::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.toast.success::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+}
+
+.toast.error::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z'/%3E%3C/svg%3E");
+}
+
+/* Animação de entrada e saída */
+@keyframes toast-in {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes toast-out {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-30px); }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .toast {
+    max-width: 80%;
+    right: 10px;
+    left: 10px;
+    margin: 0 auto;
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+}

@@ -19,23 +19,23 @@ document.addEventListener('DOMContentLoaded', function () {
   }, 9000);
 
   // Navegação entre Steps (independente do backend)
-  window.nextStep = function () {
+  window.nextStep = function() {
     document.getElementById('step1-content').classList.remove('active');
     document.getElementById('step2-content').classList.add('active');
   };
 
-  window.prevStep = function () {
+  window.prevStep = function() {
     document.getElementById('step2-content').classList.remove('active');
     document.getElementById('step1-content').classList.add('active');
   };
 
   // Inicialização do WebAssembly
-  Module.onRuntimeInitialized = function () {
+  Module.onRuntimeInitialized = function() {
     console.log("WebAssembly pronto!");
 
     // === FUNÇÕES QUE CHAMAM O BACKEND ===
     // Gerar Chave Pública (usa generatePublicKey)
-    window.generateKey = function () {
+    window.generateKey = function() {
       const p = document.getElementById('prime1').value;
       const q = document.getElementById('prime2').value;
       const e = document.getElementById('exponent').value;
@@ -44,9 +44,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       try {
         const n = Module.ccall('generatePublicKey', 'string', ['string', 'string', 'string'], [p, q, e]);
-
+        
         if (n.startsWith("KEY_ERROR")) throw new Error(n);
-
+        
         document.getElementById('public-key').value = `(${e}, ${n})`;
         document.getElementById('private-key').value = `(${p}, ${q}, ${e})`;
         alert("Chave gerada com sucesso!");
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Criptografar (usa encryptMessage)
-    window.encryptMessage = function () {
+    window.encryptMessage = function() {
       const publicKey = document.getElementById('public-key').value;
       const message = document.getElementById('message').value;
 
@@ -66,20 +66,26 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!match) return alert("Formato inválido! Use (e, n)");
 
       try {
-        const encrypted = Module.ccall(
+        let encrypted = Module.ccall(
+          'encryptMessage', 
+          'string', 
+          ['string', 'string', 'string'], 
+          [message, match[2], match[1]] // (n, e)
+        );
+        document.getElementById('encrypted-output').textContent = encrypted;
+        console.log(Module.ccall(
           'encryptMessage',
           'string',
           ['string', 'string', 'string'],
           [message, match[2], match[1]] // (n, e)
-        );
-        document.getElementById('encrypted-output').textContent = encrypted;
+        ));
       } catch (error) {
         alert(`Erro: ${error.message}`);
       }
     };
 
     // Descriptografar (usa decryptMessage)
-    window.decryptMessage = function () {
+    window.decryptMessage = function() {
       const privateKey = document.getElementById('private-key').value;
       let encryptedMsg = document.getElementById('message-decrypt').value.trim();
 
@@ -99,9 +105,30 @@ document.addEventListener('DOMContentLoaded', function () {
           [encryptedMsg, match[1], match[2], match[3]] // (p, q, e)
         );
         document.getElementById('decrypted-output').textContent = decrypted;
+      } catch (error) {}
+      try {
+        const decrypted = Module.ccall(
+          'decryptMessage',
+          'string',
+          ['string', 'string', 'string', 'string'],
+          [encryptedMsg, match[1], match[2], match[3]] // (p, q, e)
+        );
+        document.getElementById('decrypted-output').textContent = decrypted;
       } catch (error) {
         alert(`Erro: ${error.message}`);
       }
     };
   };
 });
+
+//  Exemplo de chamada de função do backend
+//
+// function run_wasm() {
+//   var result = Module.ccall(
+//     "decryptMessage",
+//     "string",
+//     ["string", "string", "string", "string"],
+//     ["155 14 58 76 131 178 66 144 155 ", "17", "11", "23"]
+//   );
+//   console.log(result);
+// }

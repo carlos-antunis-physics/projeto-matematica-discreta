@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('public-key').value = `(${e}, ${n})`;
         document.getElementById('private-key').value = `(${p}, ${q}, ${e})`;
         alert("Chave gerada com sucesso!");
+        location.reload();
       } catch (error) {
         alert(`Erro: ${error.message}`);
       }

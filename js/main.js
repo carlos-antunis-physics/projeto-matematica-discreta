@@ -18,122 +18,119 @@ document.addEventListener('DOMContentLoaded', function () {
     banner3.classList.add('active', 'fade-in');
   }, 9000);
 
-  // Navegação entre Steps (independente do backend)
-  window.nextStep = function () {
+  // Navegação entre Steps
+  window.nextStep = function() {
     document.getElementById('step1-content').classList.remove('active');
     document.getElementById('step2-content').classList.add('active');
   };
 
-  window.prevStep = function () {
+  window.prevStep = function() {
     document.getElementById('step2-content').classList.remove('active');
     document.getElementById('step1-content').classList.add('active');
   };
 
+  // Função para mostrar notificações estilo Google
+  function showToast(message, isSuccess = true) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = 'toast ' + (isSuccess ? 'success' : 'error');
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 3000);
+  }
+
+  // Função para copiar chaves
+  window.copyToClipboard = function(elementId) {
+    const text = document.getElementById(elementId).textContent;
+    navigator.clipboard.writeText(text)
+      .then(() => showToast("Chave copiada com sucesso!"))
+      .catch(() => showToast("Erro ao copiar chave.", false));
+  };
+
   // Inicialização do WebAssembly
-  Module.onRuntimeInitialized = function () {
+  Module.onRuntimeInitialized = function() {
     console.log("WebAssembly pronto!");
-
-    // === FUNÇÕES QUE CHAMAM O BACKEND ===
-
-    // Gerar Chave Pública (usa generatePublicKey)
-    window.generateKey = function () {
+    
+    // Gerar chave pública
+    window.generateKey = function() {
       const p = document.getElementById('prime1').value;
       const q = document.getElementById('prime2').value;
       const e = document.getElementById('exponent').value;
 
-      if (!p || !q || !e) return alert("Preencha todos os campos!");
+      if (!p || !q || !e) return showToast("Preencha todos os campos!", false);
 
       try {
         const n = Module.ccall('generatePublicKey', 'string', ['string', 'string', 'string'], [p, q, e]);
 
         if (n.startsWith("KEY_ERROR")) throw new Error(n);
 
-        document.getElementById('public-key').value = `(${e}, ${n})`;
-        document.getElementById('private-key').value = `(${p}, ${q}, ${e})`;
-        alert("Chave gerada com sucesso!");
+        // Exibe chaves geradas
+        document.getElementById('generated-public-key').textContent = `(${e}, ${n})`;
+        document.getElementById('generated-private-key').textContent = `(${p}, ${q}, ${e})`;
 
-        // Limpa os campos e saídas
-        document.getElementById('message').value = '';
-        document.getElementById('message-decrypt').value = '';
-        document.getElementById('encrypted-output').textContent = '';
-        document.getElementById('decrypted-output').textContent = '';
+        // Mostra notificação
+        showToast("Chave gerada com sucesso!");
       } catch (error) {
-        alert(`Erro: ${error.message}`);
+        showToast(`Erro: ${error.message}`, false);
       }
     };
 
-    // Criptografar (usa encryptMessage)
-    window.encryptMessage = function () {
+    // Criptografar
+    window.encryptMessage = function() {
       const publicKey = document.getElementById('public-key').value;
       const message = document.getElementById('message').value;
 
-      if (!publicKey || !message) return alert("Preencha todos os campos!");
+      if (!publicKey || !message) return showToast("Preencha todos os campos!", false);
 
       const match = publicKey.match(/\((\d+),\s*(\d+)\)/);
-      if (!match) return alert("Formato inválido! Use (e, n)");
+      if (!match) return showToast("Formato inválido! Use (e, n)", false);
 
       try {
-        let encrypted = Module.ccall(
-          'encryptMessage',
-          'string',
-          ['string', 'string', 'string'],
-          [message, match[2], match[1]] // (n, e)
-        );
+        let encrypted = Module.ccall('encryptMessage', 'string', ['string', 'string', 'string'], [message, match[2], match[1]]);
+
+        // Exibe a mensagem criptografada
         document.getElementById('encrypted-output').textContent = encrypted;
 
-        // Espera 1 segundo antes de recarregar (opcional)
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
+        // Mostra notificação
+        showToast("Mensagem criptografada com sucesso!");
       } catch (error) {
-        alert(`Erro: ${error.message}`);
-        location.reload(); // ainda recarrega se falhar
+        showToast(`Erro: ${error.message}`, false);
       }
     };
 
-    // Descriptografar (usa decryptMessage)
-    window.decryptMessage = function () {
+    // Descriptografar
+    window.decryptMessage = function() {
       const privateKey = document.getElementById('private-key').value;
       let encryptedMsg = document.getElementById('message-decrypt').value.trim();
 
-      if (!privateKey || !encryptedMsg) return alert("Preencha todos os campos!");
+      if (!privateKey || !encryptedMsg) return showToast("Preencha todos os campos!", false);
 
       const match = privateKey.match(/\((\d+),\s*(\d+),\s*(\d+)\)/);
-      if (!match) return alert("Formato inválido! Use (p, q, e)");
+      if (!match) return showToast("Formato inválido! Use (p, q, e)", false);
 
-      // Garante o espaço no final (requisito do backend)
-      if (encryptedMsg.slice(-1) !== ' ') encryptedMsg += ' ';
-
-      try {
+    try {
         const decrypted = Module.ccall(
           'decryptMessage',
           'string',
           ['string', 'string', 'string', 'string'],
-          [encryptedMsg, match[1], match[2], match[3]]
+          [encryptedMsg, match[1], match[2], match[3]] // (p, q, e)
+        );
+      } catch (error) {
+      }
+      
+    try {
+        const decrypted = Module.ccall(
+          'decryptMessage',
+          'string',
+          ['string', 'string', 'string', 'string'],
+          [encryptedMsg, match[1], match[2], match[3]] // (p, q, e)
         );
         document.getElementById('decrypted-output').textContent = decrypted;
-
-        // Espera 1 segundo antes de recarregar (opcional)
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
       } catch (error) {
         alert(`Erro: ${error.message}`);
-        location.reload(); // ainda recarrega se falhar
       }
     };
   };
 });
-
-
-//  Exemplo de chamada de função do backend
-//
-// function run_wasm() {
-//   var result = Module.ccall(
-//     "decryptMessage",
-//     "string",
-//     ["string", "string", "string", "string"],
-//     ["155 14 58 76 131 178 66 144 155 ", "17", "11", "23"]
-//   );
-//   console.log(result);
-// }

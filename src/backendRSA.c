@@ -143,7 +143,7 @@ char *encryptMessage(char *msg, const char *_n, const char *_e)
     mpz_init(c);
 
     size_t N = strlen(msg);                         // N = length of msg
-    char *cypher_text = (char *)malloc(N * (mpz_sizeinbase(n, 10) + 1) * sizeof(char));
+    char *cypher_text = (char *)malloc(N * (mpz_get_ui(n) + 1) * sizeof(char));
     cypher_text[0] = '\0';                          // initialize cypher_text
 
     //  Encrypt message char by char
@@ -197,7 +197,7 @@ char *decryptMessage(char *_cphr, const char *_p, const char *_q, const char *_e
     mpz_mul(n, p, q);                               // n = p * q
     
     char *message = (char *)malloc((len + 1) * sizeof(char));
-    char *c = (char *)malloc(mpz_sizeinbase(n, 10) + 1);
+    char *c = (char *)malloc(mpz_get_ui(n) + 1);
     
     message[0] = '\0';                            // initialize message
     

@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Descriptografar
     window.decryptMessage = function() {
       const privateKey = document.getElementById('private-key').value;
-      let encryptedMsg = document.getElementById('message-decrypt').value.trim();
+      let encryptedMsg = document.getElementById('message-decrypt').value;
 
       if (!privateKey || !encryptedMsg) return showToast("Preencha todos os campos!", false);
 
@@ -121,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       
     try {
+      if (encryptedMsg.slice(-1) !== ' ') encryptedMsg += ' ';
         const decrypted = Module.ccall(
           'decryptMessage',
           'string',

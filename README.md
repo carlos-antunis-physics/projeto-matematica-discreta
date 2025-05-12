@@ -21,7 +21,7 @@ Projeto de **Criptografia RSA** como **atividade avaliativa** da disciplina de *
 
 ##  Licença
 
-A aplicação web disposta neste repositório foi desenvolvida sob a [licença MIT](./LICENSE).
+A página web disposta neste repositório foi desenvolvida sob a [licença MIT](./LICENSE).
 
 ### Bibliotecas e dependências
 

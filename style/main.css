@@ -571,7 +571,7 @@ body {
 .generated-keys {
   margin-top: 20px;
   padding: 15px;
-  background-color: #f3f3f3;
+  background-color: #ffdad292;
   border-radius: 12px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
 }
@@ -579,7 +579,7 @@ body {
 .generated-keys h3 {
   margin-bottom: 8px;
   font-size: 1.1rem;
-  color: #333;
+  color: #250707;
 }
 
 .key-display {
@@ -597,7 +597,7 @@ body {
 }
 
 .generated-keys button {
-  background-color: #007bff;
+  background-color: #250707;
   color: white;
   border: none;
   padding: 8px 14px;
@@ -608,7 +608,7 @@ body {
 }
 
 .generated-keys button:hover {
-  background-color: #0056b3;
+  background-color: #250707;
 }
 /* ===== ESTILOS DA NOTIFICAÇÃO (TOAST) ===== */
 .toast {

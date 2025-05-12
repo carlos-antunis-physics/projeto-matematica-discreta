@@ -19,13 +19,7 @@
         MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
         MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
         MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
-        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
-        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNNIS - RSA • MATEMATICA DISCRETA •
-        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
-        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
-        MIRIAN GOMES, GIOVANNA AZEVEDO, FLAVIA MIRELLY, FILIPE FORTALEZA, CARLOS ANTUNIS - RSA • MATEMATICA DISCRETA •
       </div>
-
     </div>
   </header>
 
@@ -47,100 +41,115 @@
         <img src="assets/imagens/banner3.png" alt="VAMOS COMEÇAR">
       </div>
     </section>
-<!-- Conteúdo principal -->
-  <main>
-    <section class="banner-container">
-      <!-- Banner 1 -->
-      <div class="banner" id="banner1">
-        <img src="assets/imagens/banner1.png" alt="Dino CRIPTOGRAFAR">
-      </div>
 
-      <!-- Banner 2 (GIF animado) -->
-      <div class="banner" id="banner2">
-        <img src="assets/imagens/banner2.gif" alt="GIF Dino Animado">
-      </div>
-
-      <!-- Banner 3 -->
-      <div class="banner" id="banner3">
-        <img src="assets/imagens/banner3.png" alt="VAMOS COMEÇAR">
-      </div>
-    </section>
-
- <!-- Seções do conteúdo -->
+    <!-- Seções do conteúdo -->
     <div class="section-container">
       
       <!-- Seção 1: Gerar Chave Pública RSA -->
-      <div class="section-body" id="step1">
-        <div class="keygen-container">
-          <div class="keygen-header">
-            <h1>GERAR CHAVE PÚBLICA</h1>
-          </div>
-          <div class="keygen-body">
-            <div class="step active" id="step1-content">
-              <h2>Dois números primos</h2>
-              <input type="number" id="prime1" placeholder="Número primo (p)" />
-              <input type="number" id="prime2" placeholder="Número primo (q)" />
-              <button onclick="nextStep()">Próximo</button>
-            </div>
-            <div class="step" id="step2-content">
-              <h2>Digite o expoente</h2>
-              <div class="exponent-options" id="exponent-options"></div>
-              <input type="number" id="exponent" placeholder="" />
-              <div class="footer-buttons">
-                <button onclick="prevStep()">← Voltar</button>
-                <button onclick="generateKey()">Gerar</button>
-              </div>
-            </div>
-          </div>
+<div class="section-body" id="step1">
+  <div class="keygen-container">
+    <div class="keygen-header">
+      <h1>GERAR CHAVE PÚBLICA</h1>
+    </div>
+    <div class="keygen-body">
+      <div class="step active" id="step1-content">
+        <h2>Dois números primos</h2>
+        <input type="number" id="prime1" placeholder="Número primo (p)" />
+        <input type="number" id="prime2" placeholder="Número primo (q)" />
+        <button onclick="nextStep()">Próximo</button>
+      </div>
+      <div class="step" id="step2-content">
+        <h2>Digite o expoente</h2>
+        <input type="number" id="exponent" placeholder="Expoente (e)" />
+
+        <!-- Área para exibir as chaves geradas -->
+        <div class="generated-keys">
+          <h3>Chave Pública:</h3>
+          <div id="generated-public-key" class="key-display"></div>
+          <button onclick="copyToClipboard('generated-public-key')">Copiar</button>
+
+          <h3>Chave Privada:</h3>
+          <div id="generated-private-key" class="key-display"></div>
+          <button onclick="copyToClipboard('generated-private-key')">Copiar</button>
         </div>
+
+        <!-- Feedback de Chave Gerada -->
+        <div id="key-feedback" class="feedback-message" style="display:none;">
+          Chave gerada com sucesso! Use os botões "Copiar".
+        </div>
+
+        <div class="footer-buttons">
+          <button onclick="prevStep()">← Voltar</button>
+          <button onclick="generateKey()">Gerar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Seção 2: Encriptar -->
+<div class="section-body" id="step2">
+  <div class="encrypt-container">
+    <div class="encrypt-header">
+      <h1>ENCRIPTAR</h1>
+    </div>
+    <div class="encrypt-body">
+      <label for="public-key">Chave pública</label>
+      <input type="text" id="public-key" placeholder="(e, n)" />
+      <textarea id="message" placeholder="Mensagem a ser criptografada"></textarea>
+      <button class="encrypt-btn" onclick="encryptMessage()">Gerar</button>
+
+      <!-- Feedback de Mensagem Criptografada -->
+      <div id="encrypt-feedback" class="feedback-message" style="display:none;">
+        Mensagem criptografada com sucesso!
       </div>
 
-      <!-- Seção 2: Encriptar -->
-      <div class="section-body" id="step2">
-        <div class="encrypt-container">
-          <div class="encrypt-header">
-            <h1>ENCRIPTAR</h1>
-          </div>
-          <div class="encrypt-body">
-            <label for="public-key">Chave pública</label>
-            <input type="text" id="public-key" placeholder="(e, n)" />
-            <textarea id="message" placeholder="Mensagem a ser criptografada"></textarea>
-            <button class="encrypt-btn" onclick="encryptMessage()">Gerar</button>
-            <p id="encrypted-output"></p>
-          </div>
-        </div>
+      <textarea id="encrypted-output" readonly placeholder="Mensagem criptografada"></textarea>
+      <button onclick="copyToClipboard('encrypted-output')">Copiar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Seção 3: Desencriptar -->
+<div class="section-body" id="step3">
+  <div class="encrypt-container">
+    <div class="encrypt-header">
+      <h1>DESENCRIPTAR</h1>
+    </div>
+    <div class="encrypt-body">
+      <label for="private-key">Chave privada</label>
+      <input type="text" id="private-key" placeholder="(p, q, e)" />
+      <textarea id="message-decrypt" placeholder="Mensagem a ser descriptografada"></textarea>
+      <button class="encrypt-btn" onclick="decryptMessage()">Gerar</button>
+
+      <!-- Feedback de Mensagem Descriptografada -->
+      <div id="decrypt-feedback" class="feedback-message" style="display:none;">
+        Mensagem descriptografada com sucesso!
       </div>
 
-      <!-- Seção 3: Desencriptar -->
-      <div class="section-body" id="step3">
-        <div class="encrypt-container">
-          <div class="encrypt-header">
-            <h1>DESENCRIPTAR</h1>
-          </div>
-          <div class="encrypt-body">
-            <label for="private-key">Chave privada</label>
-            <input type="text" id="private-key" placeholder="(p, q, e)" />
-            <textarea id="message-decrypt" placeholder="Mensagem a ser descriptografada"></textarea>
-            <button class="encrypt-btn" onclick="decryptMessage()">Gerar</button>
-            <p id="decrypted-output"></p>
-          </div>
-        </div>
-      </div>
+      <textarea id="decrypted-output" readonly placeholder="Mensagem descriptografada"></textarea>
+      <button onclick="copyToClipboard('decrypted-output')">Copiar</button>
+    </div>
+  </div>
+</div>
 
     </div>
   </main>
+
   <script>
-  var Module = {
-    wasmBinaryFile: 'js/rsa.wasm',
-    locateFile: function(path) {
-      if (path.endsWith('.wasm')) return 'js/rsa.wasm';
-      return path;
-    }
-  };
-</script>
-<script src="js/rsa.js"></script>
+    var Module = {
+      wasmBinaryFile: 'js/rsa.wasm',
+      locateFile: function(path) {
+        if (path.endsWith('.wasm')) return 'js/rsa.wasm';
+        return path;
+      }
+    };
+  </script>
+  <script src="js/rsa.js"></script>
   <script src="js/main.js"></script>
-<!-- Rodapé -->
+
+  <div id="toast" class="toast"></div>
+  <!-- Rodapé -->
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-logos">
@@ -152,5 +161,6 @@
       </p>
     </div>
   </footer>
+  
 </body>
 </html>

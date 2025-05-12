@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Inicialização do WebAssembly
   Module.onRuntimeInitialized = function() {
-    console.log("WebAssembly pronto!");
 
     // === FUNÇÕES QUE CHAMAM O BACKEND ===
     // Gerar Chave Pública (usa generatePublicKey)
@@ -45,6 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
       try {
         const n = Module.ccall('generatePublicKey', 'string', ['string', 'string', 'string'], [p, q, e]);
         
+        //  Deixar o erro mais verboso
+        //  [Exemplo] erro: p ou q não são primos
         if (n.startsWith("KEY_ERROR")) throw new Error(n);
         
         document.getElementById('public-key').value = `(${e}, ${n})`;
@@ -66,13 +67,14 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!match) return alert("Formato inválido! Use (e, n)");
 
       try {
-        const encrypted = Module.ccall(
-          'encryptMessage', 
-          'string', 
-          ['string', 'string', 'string'], 
+        let encrypted = Module.ccall(
+          'encryptMessage',
+          'string',
+          ['string', 'string', 'string'],
           [message, match[2], match[1]] // (n, e)
         );
         document.getElementById('encrypted-output').textContent = encrypted;
+        console.log(encrypted);                        // nao apagar - quebra o funcionamento
       } catch (error) {
         alert(`Erro: ${error.message}`);
       }
@@ -91,13 +93,23 @@ document.addEventListener('DOMContentLoaded', function () {
       // Garante o espaço no final (requisito do backend)
       if (encryptedMsg.slice(-1) !== ' ') encryptedMsg += ' ';
 
+      let decrypted;
       try {
-        const decrypted = Module.ccall(
+        let decrypted = Module.ccall(
           'decryptMessage',
           'string',
           ['string', 'string', 'string', 'string'],
           [encryptedMsg, match[1], match[2], match[3]] // (p, q, e)
         );
+      } catch (error) {}
+      try {
+        decrypted = Module.ccall(
+          'decryptMessage',
+          'string',
+          ['string', 'string', 'string', 'string'],
+          [encryptedMsg, match[1], match[2], match[3]] // (p, q, e)
+        );
+        console.log(decrypted);                        // nao apagar - quebra o funcionamento
         document.getElementById('decrypted-output').textContent = decrypted;
       } catch (error) {
         alert(`Erro: ${error.message}`);
@@ -105,15 +117,3 @@ document.addEventListener('DOMContentLoaded', function () {
     };
   };
 });
-
-//  Exemplo de chamada de função do backend
-//
-// function run_wasm() {
-//   var result = Module.ccall(
-//     "decryptMessage",
-//     "string",
-//     ["string", "string", "string", "string"],
-//     ["155 14 58 76 131 178 66 144 155 ", "17", "11", "23"]
-//   );
-//   console.log(result);
-// }

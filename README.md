@@ -27,7 +27,7 @@ Os arquivos aqui dispostos, para a construção da página web, foram desenvolvi
 
 - [**Emscripten.**](https://emscripten.org/) Um compilador completo da linguagem `C` para WebAssembly.    
 
-- [**GNU Multiple Precision Arithmetic Library (GMP).**](https://gmplib.org/) Uma biblioteca livre para aritmética de precisão arbitrária, distribuída segundo a Licença [**GNU LGPL v3**](https://www.gnu.org/licenses/lgpl-3.0.html). Para a substituição da biblioteca no backend, disposta aqui de maneira estática, basta efetuar sua instalação via emscripten.
+- [**GNU Multiple Precision Arithmetic Library (GMP).**](https://gmplib.org/) Uma biblioteca livre para aritmética de precisão arbitrária, distribuída segundo a Licença [**GNU LGPL v3**](https://www.gnu.org/licenses/lgpl-3.0.html). Para a substituição da biblioteca no backend (a dispusemos [num repositório a parte](https://github.com/carlos-antunis-physics/backend-rsa)) de maneira estática, basta efetuar sua instalação via emscripten.
 
 ####    Instalação do GMP via emscripten
 
